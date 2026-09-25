@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ============ SEO / META ============ -->
+  <title>Justine Silwimba | IT Specialist, AI & Technology</title>
+  <meta name="description" content="Justine Silwimba — Data Science and AI enthusiast, IT Specialist. Building intelligent, practical solutions with data, machine learning and software engineering." />
+  <meta name="author" content="Justine Silwimba" />
+  <meta name="keywords" content="Justine Silwimba, Data Science, Machine Learning, AI, IT Specialist, Portfolio, Tanzania" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Justine Silwimba | IT Specialist, AI & Technology" />
+  <meta property="og:description" content="Data Science | AI & Technology Enthusiast | IT Specialist. Explore my projects, skills and experience." />
+  <meta property="og:image" content="assets/images/og-cover.jpg" /> 
+  <meta property="og:url" content="https://your-domain-here.vercel.app" /> <!-- TODO: replace with real deployed URL -->
+
+  <!-- Favicon (placeholder — replace assets/icons/favicon.png with your own) -->
+  <link rel="icon" type="image/png" href="assets/icons/favicon.png" />
+
+  <!-- ============ FONTS ============ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- ============ ICONS ============ -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- ============ TAILWIND (CDN build for MVP — see README for production build notes) ============ -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            ink: {
+              950: '#0B1220', // page background
+              900: '#0F1B2E', // section alt background
+              800: '#121B2E', // card surface
+              700: '#1B2740', // card border / hover surface
+            },
+            mist: {
+              100: '#E8EDF5', // primary text on dark
+              300: '#AEB9CC', // secondary text
+              500: '#7C8AA3', // muted text
+            },
+            signal: {
+              DEFAULT: '#5EEAD4', // teal accent — data / graph motif
+              600: '#2DD4BF',
+            },
+            amber: {
+              DEFAULT: '#F5A623', // warm accent — reserved for primary CTA only
+            },
+          },
+          fontFamily: {
+            display: ['"Space Grotesk"', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+          },
+          maxWidth: {
+            prose: '68ch',
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- ============ BASE STYLES ============ -->
+  <style>
+    html { scroll-behavior: smooth; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    body {
+      background-color: #0B1220;
+      color: #E8EDF5;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Visible keyboard focus ring everywhere */
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid #5EEAD4;
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* Nav underline used to mark the active section */
+    .nav-link { position: relative; }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -4px;
+      width: 0; height: 2px;
+      background-color: #5EEAD4;
+      transition: width 0.25s ease;
+    }
+    .nav-link.active::after,
+    .nav-link:hover::after { width: 100%; }
+    .nav-link.active { color: #E8EDF5; }
+
+    /* Typing-animation caret */
+    .typing-caret {
+      display: inline-block;
+      width: 2px;
+      margin-left: 2px;
+      background-color: #5EEAD4;
+      animation: caret-blink 0.9s steps(1) infinite;
+    }
+    @keyframes caret-blink { 50% { opacity: 0; } }
+
+    /* Hero entrance sequence (single orchestrated moment, not per-section) */
+    .hero-in {
+      opacity: 0;
+      transform: translateY(14px);
+      animation: hero-rise 0.7s ease forwards;
+    }
+    @keyframes hero-rise { to { opacity: 1; transform: translateY(0); } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-in { opacity: 1; transform: none; animation: none; }
+      .typing-caret { animation: none; }
+    }
+
+    /* Scroll-reveal utility (JS toggles .is-visible) */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* Graph-node motif animation in the hero illustration */
+    .graph-pulse { animation: graph-pulse 3.4s ease-in-out infinite; }
+    @keyframes graph-pulse {
+      0%, 100% { opacity: 0.35; }
+      50% { opacity: 1; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .graph-pulse { animation: none; opacity: 0.8; }
+    }
+  </style>
+</head>
+
+<body class="bg-ink-950 font-body antialiased">
+
+  <!-- Skip link for keyboard/screen-reader users -->
+  <a href="#home" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-signal focus:text-ink-950 focus:px-4 focus:py-2 focus:rounded-md focus:font-medium">
+    Skip to content
+  </a>
+
+  <!-- ======================================================= -->
+  <!-- NAVIGATION                                               -->
+  <!-- ======================================================= -->
+  <header id="site-header" class="fixed top-0 inset-x-0 z-50 border-b border-transparent transition-colors duration-300">
+    <nav class="max-w-6xl mx-auto px-6 lg:px-8" aria-label="Primary">
+      <div class="flex items-center justify-between h-16">
+
+        <!-- Logo / name -->
+        <a href="#home" class="font-display font-semibold text-lg tracking-tight text-mist-100 hover:text-signal transition-colors">
+          Justine<span class="text-signal">.</span>
+        </a>
+
+        <!-- Desktop links -->
+        <ul class="hidden md:flex items-center gap-8 text-sm text-mist-300 font-medium">
+          <li><a href="#home" class="nav-link active py-1" data-nav>Home</a></li>
+          <li><a href="#about" class="nav-link py-1" data-nav>About</a></li>
+          <li><a href="#skills" class="nav-link py-1" data-nav>Skills</a></li>
+          <li><a href="#projects" class="nav-link py-1" data-nav>Projects</a></li>
+          <li><a href="#experience" class="nav-link py-1" data-nav>Experience</a></li>
+          <li>
+            <a href="#contact" class="inline-flex items-center rounded-md bg-signal/10 text-signal border border-signal/30 px-4 py-1.5 hover:bg-signal/20 transition-colors" data-nav>
+              Contact
+            </a>
+          </li>
+        </ul>
+
+        <!-- Mobile hamburger -->
+        <button id="menu-toggle" type="button" class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-md text-mist-100 hover:bg-ink-800 transition-colors" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+          <i class="fa-solid fa-bars text-lg" id="menu-icon" aria-hidden="true"></i>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile menu panel -->
+    <div id="mobile-menu" class="md:hidden hidden bg-ink-900/98 border-t border-ink-700">
+      <ul class="flex flex-col px-6 py-4 gap-1 text-mist-300 font-medium">
+        <li><a href="#home" class="block py-3 hover:text-signal transition-colors" data-nav data-mobile>Home</a></li>
+        <li><a href="#about" class="block py-3 hover:text-signal transition-colors" data-nav data-mobile>About</a></li>
+        <li><a href="#skills" class="block py-3 hover:text-signal transition-colors" data-nav data-mobile>Skills</a></li>
+        <li><a href="#projects" class="block py-3 hover:text-signal transition-colors" data-nav data-mobile>Projects</a></li>
+        <li><a href="#experience" class="block py-3 hover:text-signal transition-colors" data-nav data-mobile>Experience</a></li>
+        <li><a href="#contact" class="block py-3 text-signal" data-nav data-mobile>Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main id="home">
+
+    <!-- ======================================================= -->
+    <!-- HERO / HOME SECTION                                      -->
+    <!-- ======================================================= -->
+    <section class="relative overflow-hidden pt-32 pb-20 md:pt-40 md:pb-28">
+
+      <!-- faint background grid, purely decorative -->
+      <div class="pointer-events-none absolute inset-0 opacity-[0.07]" aria-hidden="true"
+           style="background-image: linear-gradient(#5EEAD4 1px, transparent 1px), linear-gradient(90deg, #5EEAD4 1px, transparent 1px); background-size: 48px 48px;">
+      </div>
+
+      <div class="relative max-w-6xl mx-auto px-6 lg:px-8 grid md:grid-cols-[1.1fr_0.9fr] gap-14 items-center">
+
+        <!-- Left: text content -->
+        <div>
+          <p class="hero-in text-signal font-display text-sm tracking-wide mb-5" style="animation-delay: 0.05s;">
+            IT, Data Science &amp; AI, built to ship
+          </p>
+
+          <h1 class="hero-in font-display font-semibold text-4xl sm:text-5xl lg:text-[3.25rem] leading-[1.1] text-mist-100 mb-6" style="animation-delay: 0.15s;">
+            Building intelligent solutions with data, AI &amp; technology
+          </h1>
+
+          <p class="hero-in text-lg text-mist-300 mb-2 h-8" style="animation-delay: 0.25s;">
+            <span id="typing-role" class="font-medium text-mist-100" aria-hidden="true"></span><span class="typing-caret h-5 align-middle" aria-hidden="true"></span>
+          </p>
+          <p class="sr-only">Data Science, AI & Technology Enthusiast, IT Specialist</p>
+
+          <p class="hero-in max-w-prose text-mist-300 leading-relaxed mb-9" style="animation-delay: 0.35s;">
+            I'm a IT Specialist who builds practical, working software around machine learning and AI —
+            from data analysis and model evaluation to applications that put those models in front of
+            real users. I care less about the buzzwords and more about whether the thing actually solves a problem.
+          </p>
+
+          <div class="hero-in flex flex-wrap items-center gap-4 mb-10" style="animation-delay: 0.45s;">
+            <a href="#projects" class="inline-flex items-center gap-2 rounded-md bg-signal text-ink-950 font-semibold px-6 py-3 hover:bg-signal-600 transition-colors">
+              View my projects
+              <i class="fa-solid fa-arrow-right text-sm" aria-hidden="true"></i>
+            </a>
+            <a href="#contact" class="inline-flex items-center gap-2 rounded-md border border-ink-700 text-mist-100 font-medium px-6 py-3 hover:border-signal hover:text-signal transition-colors">
+              Contact me
+            </a>
+          </div>
+
+          <div class="hero-in flex items-center gap-5" style="animation-delay: 0.55s;">
+            <a href="https://github.com/Justine-Xagmi" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile" class="text-mist-500 hover:text-signal transition-colors text-xl">
+              <i class="fa-brands fa-github" aria-hidden="true"></i>
+            </a>
+            <a href="https://linkedin.com/in/justine-lwky" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile" class="text-mist-500 hover:text-signal transition-colors text-xl">
+              <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
+            </a>
+            <a href="mailto:justechshop@gmail.com" aria-label="Send an email" class="text-mist-500 hover:text-signal transition-colors text-xl">
+              <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: graph-node illustration (data/AI motif, replaces a generic gradient blob) -->
+        <div class="hero-in hidden md:block" style="animation-delay: 0.3s;" aria-hidden="true">
+          <svg viewBox="0 0 420 420" class="w-full h-auto max-w-md mx-auto">
+            <g stroke="#5EEAD4" stroke-width="1" opacity="0.5">
+              <line x1="80" y1="90" x2="210" y2="150"></line>
+              <line x1="210" y1="150" x2="340" y2="100"></line>
+              <line x1="210" y1="150" x2="150" y2="270"></line>
+              <line x1="210" y1="150" x2="300" y2="260"></line>
+              <line x1="150" y1="270" x2="90" y2="340"></line>
+              <line x1="150" y1="270" x2="300" y2="260"></line>
+              <line x1="300" y1="260" x2="350" y2="340"></line>
+              <line x1="80" y1="90" x2="150" y2="270"></line>
+            </g>
+            <g fill="#5EEAD4">
+              <circle class="graph-pulse" cx="80" cy="90" r="6" style="animation-delay:0s"></circle>
+              <circle class="graph-pulse" cx="340" cy="100" r="5" style="animation-delay:0.4s"></circle>
+              <circle class="graph-pulse" cx="210" cy="150" r="8" style="animation-delay:0.8s"></circle>
+              <circle class="graph-pulse" cx="150" cy="270" r="6" style="animation-delay:1.2s"></circle>
+              <circle class="graph-pulse" cx="300" cy="260" r="7" style="animation-delay:1.6s"></circle>
+              <circle class="graph-pulse" cx="90" cy="340" r="5" style="animation-delay:2s"></circle>
+              <circle class="graph-pulse" cx="350" cy="340" r="5" style="animation-delay:2.4s"></circle>
+            </g>
+          </svg>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- ABOUT SECTION                                            -->
+    <!-- ======================================================= -->
+    <section id="about" class="scroll-mt-16 py-24 border-t border-ink-800">
+      <div class="max-w-6xl mx-auto px-6 lg:px-8 grid md:grid-cols-[1.4fr_1fr] gap-14">
+
+        <div class="reveal">
+          <h2 class="font-display font-semibold text-3xl text-mist-100 mb-6">About</h2>
+
+          <div class="space-y-5 text-mist-300 leading-relaxed max-w-prose">
+            <p>
+              I'm an IT Specialist with a strong pull toward artificial intelligence and a habit of
+              turning ideas into working software rather than leaving them as notebooks. Most of what I build
+              sits at the intersection of the two: a model or an analysis on one side, and a real interface —
+              web or mobile — that makes it usable on the other.
+            </p>
+            <p>
+              I got into this through curiosity about how machines learn patterns from data, and it grew into
+              a broader interest in the full pipeline: cleaning and exploring data, training and evaluating
+              models, and then shipping them inside applications people can actually open and use. I'm
+              equally comfortable writing a data pipeline in Python and building the API and interface around it.
+            </p>
+            <p>
+              Where I'm headed: deeper into applied AI and machine learning engineering, with software
+              development as the skill that lets me deliver that work end-to-end instead of handing it off
+              halfway. I'm currently completing my <span class="text-mist-100 font-medium">B.Sc.IT & Data
+              Science</span>, expected in 2027, alongside hands-on project work and a recent AI/ML/IoT bootcamp.
+            </p>
+          </div>
+
+          <a href="assets/Justine-CV.pdf" download
+             class="mt-8 inline-flex items-center gap-2 rounded-md border border-ink-700 text-mist-100 font-medium px-6 py-3 hover:border-signal hover:text-signal transition-colors">
+            <i class="fa-solid fa-download" aria-hidden="true"></i>
+            Download CV
+          </a>
+          <!-- TODO: place your real CV file at assets/Justine-CV.pdf -->
+        </div>
+
+        <!-- Quick facts panel -->
+        <div class="reveal border border-ink-700 rounded-lg p-6 h-fit bg-ink-800/60">
+          <dl class="space-y-5 text-sm">
+            <div>
+              <dt class="text-mist-500 mb-1">Focus</dt>
+              <dd class="text-mist-100 font-medium">IT, Data Science &amp; Applied AI</dd>
+            </div>
+            <div>
+              <dt class="text-mist-500 mb-1">Also building in</dt>
+              <dd class="text-mist-100 font-medium">Web &amp; Mobile Development</dd>
+            </div>
+            <div>
+              <dt class="text-mist-500 mb-1">Education</dt>
+              <dd class="text-mist-100 font-medium">B.Sc. IT </dd>
+            </div>
+            <div>
+              <dt class="text-mist-500 mb-1">Based in</dt>
+              <dd class="text-mist-100 font-medium">Tanzania</dd>
+            </div>
+            <div>
+              <dt class="text-mist-500 mb-1">Open to</dt>
+              <dd class="text-mist-100 font-medium">Internships, freelance &amp; remote roles</dd>
+            </div>
+          </dl>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- SKILLS SECTION                                           -->
+    <!-- ======================================================= -->
+    <section id="skills" class="scroll-mt-16 py-24 border-t border-ink-800 bg-ink-900/40">
+      <div class="max-w-6xl mx-auto px-6 lg:px-8">
+
+        <h2 class="reveal font-display font-semibold text-3xl text-mist-100 mb-3">Skills</h2>
+        <p class="reveal text-mist-300 max-w-prose mb-12">
+          Tools and technologies I use across data science, machine learning, and building software around them.
+        </p>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+          <!-- Data Science -->
+          <div class="reveal border border-ink-700 rounded-lg p-6 hover:border-signal/50 transition-colors">
+            <div class="w-10 h-10 rounded-md bg-signal/10 text-signal flex items-center justify-center mb-4">
+              <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+            </div>
+            <h3 class="font-display font-semibold text-mist-100 mb-4">Data Science</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs text-mist-300 border border-ink-700 rounded px-2.5 py-1 hover:border-signal hover:text-signal transition-colors">Python</span>
+              <span class="text-xs text-mist-300 border border-ink-700 rounded px-2.5 py-1 hover:border-signal hover:text-signal transition-colors">Pandas</span>
+              <span class="text-xs text-mist-300 border border-ink-700 rounded px-2.5 py-1 hover:border-signal hover:text-signal transition-colors">NumPy</span>
+              <span class="text-xs text-mist-300 border border-ink-700 rounded px-2.5 py-1 hover:border-signal hover:text-signal transition-colors">Matplotlib</span>
+              <span class="text-xs text-mist-300 border border-ink-700 rounded px-2.5 py-1 hover:border-signal hover:text-signal transition-colors">Seaborn</span>
+              <span class="text-xs text-mist-300 border border-ink-700 rounded px-2.5 py-1 hover:border-signal hover:text-signal transition-colors">SQL</span>
+              <span class="text-xs text-mist-300 border border-ink-700 rounded px-2.5 py-1 hover:border-signal hover:text-signal transition-colors">Data Analysis</span>
+              <span class="text-xs text-mist-300 border border-ink-700 rounded px-2.5 py-1 hover:border-signal hover:text-signal transition-colors">Data Visualization</span>
+            </div>
+          </div>
+
+          <!-- AI / Machine Learning -->
+          <div class="reveal border border-ink-700 rounded-lg p-6 hover:border-signal/50 transition-colors">
+            <div class="w-10 h-10 rounded-md bg-signal/10 text-signal flex items-center justify-center mb-4">
+              <i class="fa-solid fa-brain" aria-hidden="true"></i>
+            </div>
+            <h3 class="font-display font-semibold text-mist-100 mb-4">AI / Machine Learning</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs text-mist-300 border border-ink-700 rounded px-2.5 py-1 hover:border-signal hover:text-signal transition-colors">Machine Learning</span>
+              <span class="text-xs text-mist-300 border border-ink-700 rounded px-2.5 py-1 hover:border-signal hover:text-signal transition-colors">NLP</span>
+              <span class="text-xs text-mist-300 border border-ink-700 rounded px-2.5 py-1 hover:border-signal hover:text-signal transition-colors">Computer Vision</span>
+              <span class="text-xs text-mist-300 border border-ink-700 rounded px-2.5 py-1 hover:border-signal hover:text-signal transition-colors">Generative AI</span>
+              <span class="text-xs text-mist-300 border border-ink-700 rounded px-2.5 py-1 hover:border-signal hover:text-signal transition-colors">RAG</span>
+              <span class="text-xs text-mist-300 border border-ink-700 rounded px-2.5 py-1 hover:border-signal hover:text-signal transition-colors">AI Evaluation</span>
+              <span class="text-xs text-mist-300 border border-ink-700 rounded px-2.5 py-1 hover:border-signal hover:text-signal transition-colors">Prompt Engineering</span>
+            </div>
+          </div>
+
+          <!-- Software Development -->
+          <div class="reveal border border-ink-700 rounded-lg p-6 hover:border-signal/50 transition-colors">
+            <div class="w-10 h-10 rounded-md bg-signal/10 text-signal flex items-center justify-center mb-4">
+              <i class="fa-solid fa-code" aria-hidden="true"></i>
+            </div>
+            <h3 class="font-display font-semibold text-mist-100 mb-4">Software Development</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs text-mist-300 border border-ink-700 rounded px-2.5 py-1 hover:border-signal hover:text-signal transition-colors">HTML</span>
+              <span class="text-xs text-mist-300 border border-ink-700 rounded px-2.5 py-1 hover:border-signal hover:text-signal transition-colors">CSS</span>
+              <span class="text-xs text-mist-300 border border-ink-700 rounded px-2.5 py-1 hover:border-signal hover:text-signal transition-colors">JavaScript</span>
+              <span class="text-xs text-mist-300 border border-ink-700 rounded px-2.5 py-1 hover:border-signal hover:text-signal transition-colors">React</span>
+              <span class="text-xs text-mist-300 border border-ink-700 rounded px-2.5 py-1 hover:border-signal hover:text-signal transition-colors">Java</span>
+              <span class="text-xs text-mist-300 border border-ink-700 rounded px-2.5 py-1 hover:border-signal hover:text-signal transition-colors">Spring Boot</span>
+              <span class="text-xs text-mist-300 border border-ink-700 rounded px-2.5 py-1 hover:border-signal hover:text-signal transition-colors">REST APIs</span>
+              <span class="text-xs text-mist-300 border border-ink-700 rounded px-2.5 py-1 hover:border-signal hover:text-signal transition-colors">PostgreSQL</span>
+            </div>
+          </div>
+
+          <!-- Tools -->
+          <div class="reveal border border-ink-700 rounded-lg p-6 hover:border-signal/50 transition-colors">
+            <div class="w-10 h-10 rounded-md bg-signal/10 text-signal flex items-center justify-center mb-4">
+              <i class="fa-solid fa-toolbox" aria-hidden="true"></i>
+            </div>
+            <h3 class="font-display font-semibold text-mist-100 mb-4">Tools</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs text-mist-300 border border-ink-700 rounded px-2.5 py-1 hover:border-signal hover:text-signal transition-colors">Git</span>
+              <span class="text-xs text-mist-300 border border-ink-700 rounded px-2.5 py-1 hover:border-signal hover:text-signal transition-colors">GitHub</span>
+              <span class="text-xs text-mist-300 border border-ink-700 rounded px-2.5 py-1 hover:border-signal hover:text-signal transition-colors">VS Code</span>
+              <span class="text-xs text-mist-300 border border-ink-700 rounded px-2.5 py-1 hover:border-signal hover:text-signal transition-colors">Jupyter Notebook</span>
+              <span class="text-xs text-mist-300 border border-ink-700 rounded px-2.5 py-1 hover:border-signal hover:text-signal transition-colors">Roboflow</span>
+              <span class="text-xs text-mist-300 border border-ink-700 rounded px-2.5 py-1 hover:border-signal hover:text-signal transition-colors">CVAT</span>
+              <span class="text-xs text-mist-300 border border-ink-700 rounded px-2.5 py-1 hover:border-signal hover:text-signal transition-colors">Streamlit</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- PROJECTS SECTION                                         -->
+    <!-- ======================================================= -->
+    <!--
+      Each project card follows the same structure so you can copy one
+      <article class="project-card ..."> block to add a new project.
+      Swap the icon, title, description, tech tags, and links.
+      To add a real screenshot: replace the <div class="thumb..."> block
+      with <img src="assets/images/your-project.jpg" alt="..." class="w-full h-44 object-cover rounded-t-lg" loading="lazy">
+    -->
+    <section id="projects" class="scroll-mt-16 py-24 border-t border-ink-800">
+      <div class="max-w-6xl mx-auto px-6 lg:px-8">
+
+        <h2 class="reveal font-display font-semibold text-3xl text-mist-100 mb-3">Projects</h2>
+        <p class="reveal text-mist-300 max-w-prose mb-12">
+          A selection of things I've built — spanning AI applications, full-stack systems, and data annotation tooling.
+        </p>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          <!-- Project 1 -->
+          <article class="project-card reveal border border-ink-700 rounded-lg overflow-hidden hover:border-signal/50 transition-colors flex flex-col">
+            <div class="thumb h-40 bg-ink-800 flex items-center justify-center border-b border-ink-700">
+              <i class="fa-solid fa-route text-3xl text-signal/70" aria-hidden="true"></i>
+            </div>
+            <div class="p-6 flex flex-col flex-1">
+              <h3 class="font-display font-semibold text-mist-100 mb-2">AI Mentor — Personalized Conversational Career Guidance</h3>
+              <p class="text-sm text-mist-300 leading-relaxed mb-4 flex-1">
+                An AI-powered career guidance platform that assesses learner skills, identifies skill gaps,
+                recommends career paths, generates personalized learning roadmaps, and provides conversational mentorship.
+              </p>
+              <div class="flex flex-wrap gap-2 mb-5">
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Flutter</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">FastAPI</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">PostgreSQL</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">AI/LLM</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">REST API</span>
+              </div>
+              <a href="https://github.com/Justine-Xagmi/AI-Career-Mentor" target="_blank" rel="noopener noreferrer"
+                 class="inline-flex items-center gap-2 text-sm text-mist-100 hover:text-signal transition-colors">
+                <i class="fa-brands fa-github" aria-hidden="true"></i> View on GitHub
+              </a>
+            </div>
+          </article>
+          
+
+          <!-- Project 6 JusTech & MeetTown  -->
+          <article class="project-card reveal border border-ink-700 rounded-lg overflow-hidden hover:border-signal/50 transition-colors flex flex-col">
+            <div class="thumb h-40 bg-ink-800 flex items-center justify-center border-b border-ink-700">
+              <i class="fa-solid fa-cart-shopping text-3xl text-signal/70" aria-hidden="true"></i>
+            </div>
+            <div class="p-6 flex flex-col flex-1">
+              <h3 class="font-display font-semibold text-mist-100 mb-2">Co-Founder: JusTech Technology Group & MeekTown Clothing Brand</h3>
+              <p class="text-sm text-mist-300 leading-relaxed mb-4 flex-1">
+                Dynamic enterprises founded by Justine and Izidory. We Power Tech Innovation
+                 by retailing premium electronic gadgets through JusTech, while designing trendsetting
+                 GenZ smart clothing and footwear under the MeekTown lifestyle brand.
+              </p>
+              <div class="flex flex-wrap gap-2 mb-5">
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Mobile Development</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Database</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">REST API</span>
+              </div>
+            </div>
+          </article>
+
+
+          <!-- Project 2 -->
+          <article class="project-card reveal border border-ink-700 rounded-lg overflow-hidden hover:border-signal/50 transition-colors flex flex-col">
+            <div class="thumb h-40 bg-ink-800 flex items-center justify-center border-b border-ink-700">
+              <i class="fa-solid fa-comments text-3xl text-signal/70" aria-hidden="true"></i>
+            </div>
+            <div class="p-6 flex flex-col flex-1">
+              <h3 class="font-display font-semibold text-mist-100 mb-2">AI Career Guidance Chatbot</h3>
+              <p class="text-sm text-mist-300 leading-relaxed mb-4 flex-1">
+                An AI-powered chatbot designed to help users explore technology careers, identify relevant
+                skills, and receive personalized learning guidance.
+              </p>
+              <div class="flex flex-wrap gap-2 mb-5">
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Python</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">AI</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">NLP</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">RAG</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Streamlit</span>
+              </div>
+              <a href="https://github.com/Justine-Xagmi/chuoAI" target="_blank" rel="noopener noreferrer"
+                 class="inline-flex items-center gap-2 text-sm text-mist-100 hover:text-signal transition-colors">
+                <i class="fa-brands fa-github" aria-hidden="true"></i> View on GitHub
+              </a>
+            </div>
+          </article>
+
+          <!-- Project 3 -->
+          <article class="project-card reveal border border-ink-700 rounded-lg overflow-hidden hover:border-signal/50 transition-colors flex flex-col">
+            <div class="thumb h-40 bg-ink-800 flex items-center justify-center border-b border-ink-700">
+              <i class="fa-solid fa-utensils text-3xl text-signal/70" aria-hidden="true"></i>
+            </div>
+            <div class="p-6 flex flex-col flex-1">
+              <h3 class="font-display font-semibold text-mist-100 mb-2">Brothers Restaurant Management System</h3>
+              <p class="text-sm text-mist-300 leading-relaxed mb-4 flex-1">
+                A full-stack restaurant management system designed to manage restaurant operations and data efficiently.
+              </p>
+              <div class="flex flex-wrap gap-2 mb-5">
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">React</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Java</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Spring Boot</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">PostgreSQL</span>
+              </div>
+              <a href="https://github.com/Justine-Xagmi/BrothersProject" target="_blank" rel="noopener noreferrer"
+                 class="inline-flex items-center gap-2 text-sm text-mist-100 hover:text-signal transition-colors">
+                <i class="fa-brands fa-github" aria-hidden="true"></i> View on GitHub
+              </a>
+            </div>
+          </article>
+
+          <!-- Project 4 -->
+          <article class="project-card reveal border border-ink-700 rounded-lg overflow-hidden hover:border-signal/50 transition-colors flex flex-col">
+            <div class="thumb h-40 bg-ink-800 flex items-center justify-center border-b border-ink-700">
+              <i class="fa-solid fa-cart-shopping text-3xl text-signal/70" aria-hidden="true"></i>
+            </div>
+            <div class="p-6 flex flex-col flex-1">
+              <h3 class="font-display font-semibold text-mist-100 mb-2">Sales Management Mobile Application</h3>
+              <p class="text-sm text-mist-300 leading-relaxed mb-4 flex-1">
+                A mobile application for managing sales activities, products, customers, and transaction information.
+              </p>
+              <div class="flex flex-wrap gap-2 mb-5">
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Mobile Development</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Database</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">REST API</span>
+              </div>
+              <a href="https://github.com/Justine-Xagmi/global-superstore-project" target="_blank" rel="noopener noreferrer"
+                 class="inline-flex items-center gap-2 text-sm text-mist-100 hover:text-signal transition-colors">
+                <i class="fa-brands fa-github" aria-hidden="true"></i> View on GitHub
+              </a>
+            </div>
+          </article>
+
+          <!-- Project 5 -->
+          <article class="project-card reveal border border-ink-700 rounded-lg overflow-hidden hover:border-signal/50 transition-colors flex flex-col">
+            <div class="thumb h-40 bg-ink-800 flex items-center justify-center border-b border-ink-700">
+              <i class="fa-solid fa-tags text-3xl text-signal/70" aria-hidden="true"></i>
+            </div>
+            <div class="p-6 flex flex-col flex-1">
+              <h3 class="font-display font-semibold text-mist-100 mb-2">AI Evaluation &amp; Annotation Platform</h3>
+              <p class="text-sm text-mist-300 leading-relaxed mb-4 flex-1">
+                A project focused on AI evaluation, data annotation, dataset preparation, and improving the
+                quality of AI systems.
+              </p>
+              <div class="flex flex-wrap gap-2 mb-5">
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Python</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">AI Evaluation</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Data Annotation</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">CVAT</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Roboflow</span>
+              </div>
+              <a href="https://github.com/Justine-Xagmi/justine-portfolio" target="_blank" rel="noopener noreferrer"
+                 class="inline-flex items-center gap-2 text-sm text-mist-100 hover:text-signal transition-colors">
+                <i class="fa-brands fa-github" aria-hidden="true"></i> View on GitHub
+              </a>
+            </div>
+          </article>
+
+          <!-- To add a new project: copy an <article class="project-card ..."> block above and edit its content -->
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- EXPERIENCE / EDUCATION SECTION                           -->
+    <!-- ======================================================= -->
+    <!--
+      To add a new experience: copy one <div class="timeline-item ..."> block
+      inside #experience-timeline and edit its content — the connecting line
+      and dot are handled automatically by the shared classes.
+    -->
+    <section id="experience" class="scroll-mt-16 py-24 border-t border-ink-800 bg-ink-900/40">
+      <div class="max-w-6xl mx-auto px-6 lg:px-8 grid lg:grid-cols-[1.3fr_1fr] gap-16">
+
+        <!-- Experience timeline -->
+        <div>
+          <h2 class="reveal font-display font-semibold text-3xl text-mist-100 mb-10">Experience</h2>
+
+          <div id="experience-timeline" class="relative pl-8 border-l border-ink-700 space-y-10">
+
+            <!-- Experience item -->
+            <div class="timeline-item reveal relative">
+              <span class="absolute -left-[calc(2rem+5px)] top-1 w-3 h-3 rounded-full bg-signal"></span>
+              <p class="text-sm text-mist-500 mb-1">2026 — Present</p>
+              <h3 class="font-display font-semibold text-mist-100 mb-1">AI, ML &amp; IoT Bootcamp</h3>
+              <p class="text-sm text-signal mb-3">BLECA SMARTLABS</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Artificial Intelligence</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Machine Learning</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">IoT</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Python</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Data Science</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Computer Vision</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">NLP</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Generative AI</span>
+              </div>
+            </div>
+
+            <!-- Experience item -->
+            <div class="timeline-item reveal relative">
+              <span class="absolute -left-[calc(2rem+5px)] top-1 w-3 h-3 rounded-full bg-signal"></span>
+              <p class="text-sm text-mist-500 mb-1">2025 - 2026</p>
+              <h3 class="font-display font-semibold text-mist-100 mb-1">Freelance AI Language Specialist, Content Writer & Digital Marketing Consultant.</h3>
+              <p class="text-sm text-signal mb-3">Independent Contractor | Remote — US & EU Clients</p>
+              <div class="flex flex-wrap gap-2">
+                
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Data Labeling</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">AI Training</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Artificial Intelligence</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Machine Learning</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Data Annotation</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Prompt Engineering</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Documented evaluation findings with high-level granularity</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Generative AI</span>
+              </div>
+            </div>
+
+            <!-- Experience item -->
+            <div class="timeline-item reveal relative">
+              <span class="absolute -left-[calc(2rem+5px)] top-1 w-3 h-3 rounded-full bg-signal"></span>
+              <p class="text-sm text-mist-500 mb-1">Dec, 2025 - May, 2026</p>
+              <h3 class="font-display font-semibold text-mist-100 mb-1">Freelance Document AI Data Annotator (Bounding Box & OCR)</h3>
+              <p class="text-sm text-signal mb-3">AI Evaluation, Prompt Engineering & Language Data</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Artificial Intelligence</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Appen</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Evaluated 500+ AI-generated outputs monthly across RLHF and RLAIF pipelines</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Scale AI</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Outlier</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Mindrift</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">DataAnnotation.tech</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Generative AI</span>
+              </div>
+            </div>
+
+            <!-- Experience item -->
+            <div class="timeline-item reveal relative">
+              <span class="absolute -left-[calc(2rem+5px)] top-1 w-3 h-3 rounded-full bg-signal"></span>
+              <p class="text-sm text-mist-500 mb-1">2024</p>
+              <h3 class="font-display font-semibold text-mist-100 mb-1">Digital Marketing & Content Strategy.</h3>
+              <p class="text-sm text-signal mb-3">  </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Delivered SEO Writing</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Produced high-quality written content across multiple domains</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">AI</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Edited and rewrote AI-generated and client content</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Professional Editorial Standards</span>
+              </div>
+            </div>
+
+            <!-- Experience item -->
+            <div class="timeline-item reveal relative">
+              <span class="absolute -left-[calc(2rem+5px)] top-1 w-3 h-3 rounded-full bg-signal"></span>
+              <p class="text-sm text-mist-500 mb-1">2025 - 2026</p>
+              <h3 class="font-display font-semibold text-mist-100 mb-1">Freelance Bookkeeping & Tax Preparation Assistant</h3>
+              <p class="text-sm text-signal mb-3">Independent Contractor | Remote — Small-Business Clients</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Independent Contractor</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Remote — Small-Business Clients</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Organising Supporting Documentation</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Python</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Data Science</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Computer Vision</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">NLP</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Generative AI</span>
+              </div>
+            </div>
+
+             <!-- Experience item --> 
+             <div class="timeline-item reveal relative">
+              <span class="absolute -left-[calc(2rem+5px)] top-1 w-3 h-3 rounded-full bg-signal"></span>
+              <p class="text-sm text-mist-500 mb-1">2026</p>
+              <h3 class="font-display font-semibold text-mist-100 mb-1">Research & Administrative Assistant</h3>
+              <p class="text-sm text-signal mb-3">Mbeya University of Science and Technology | Mbeya, Tanzania</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Mbeya University of Science and Technology</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Mbeya Tanzania</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Produced formal research documents and academic publications in English and Kiswahili</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Synthesising Academic Content</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Producing Structured Research Summaries</span>
+                <span class="text-xs text-mist-500 border border-ink-700 rounded px-2 py-0.5">Managing Documentation</span>
+              </div>
+            </div>
+
+
+            <!-- To add a new role/internship/freelance entry: copy the .timeline-item block above -->
+
+          </div>
+        </div>
+
+        <!-- Education -->
+        <div>
+          <h2 class="reveal font-display font-semibold text-3xl text-mist-100 mb-10">Education & Certifications.</h2>
+
+          <div class="space-y-6">
+            <div class="reveal border border-ink-700 rounded-lg p-6">
+              <p class="text-sm text-mist-500 mb-1">Expected 2027</p>
+              <h3 class="font-display font-semibold text-mist-100">B.Sc. IT</h3>
+            </div>
+
+            <!-- To add a certification: copy the block above, e.g. -->
+            <div class="reveal border border-ink-700 rounded-lg p-6">
+              <p class="text-sm text-mist-500 mb-1">July, 2025</p>
+              <h3 class="font-display font-semibold text-mist-100">JA Digital Entrepreneurship  Education Program.</h3>
+            </div>
+
+            <div class="reveal border border-ink-700 rounded-lg p-6">
+              <p class="text-sm text-mist-500 mb-1">2025</p>
+              <h3 class="font-display font-semibold text-mist-100">Appen Certified Contributor.</h3>
+            </div>
+
+            <div class="reveal border border-ink-700 rounded-lg p-6">
+              <p class="text-sm text-mist-500 mb-1">2024</p>
+              <h3 class="font-display font-semibold text-mist-100">Google Digital Garage.</h3>
+            </div>
+
+            <div class="reveal border border-ink-700 rounded-lg p-6">
+              <p class="text-sm text-mist-500 mb-1">2023</p>
+              <h3 class="font-display font-semibold text-mist-100">Technical Writing Fundamentals: Coursera / Google.</h3>
+            </div>
+
+            <div class="reveal border border-ink-700 rounded-lg p-6">
+              <p class="text-sm text-mist-500 mb-1">2024 - 2025</p>
+              <h3 class="font-display font-semibold text-mist-100">Best Student Award at Mbeya University of Science and Technology.</h3>
+            </div>
+
+
+            <!-- -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- SERVICES / WHAT I DO SECTION                             -->
+    <!-- ======================================================= -->
+    <section id="services" class="scroll-mt-16 py-24 border-t border-ink-800">
+      <div class="max-w-6xl mx-auto px-6 lg:px-8">
+
+        <h2 class="reveal font-display font-semibold text-3xl text-mist-100 mb-3">What I do</h2>
+        <p class="reveal text-mist-300 max-w-prose mb-12">Areas where I can contribute on a project or a team.</p>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          <div class="reveal border border-ink-700 rounded-lg p-6 hover:border-signal/50 transition-colors">
+            <i class="fa-solid fa-chart-simple text-signal text-xl mb-4" aria-hidden="true"></i>
+            <h3 class="font-display font-semibold text-mist-100 mb-2">Data Analysis</h3>
+            <p class="text-sm text-mist-300 leading-relaxed">Turning raw data into meaningful insights and visualizations.</p>
+          </div>
+
+          <div class="reveal border border-ink-700 rounded-lg p-6 hover:border-signal/50 transition-colors">
+            <i class="fa-solid fa-robot text-signal text-xl mb-4" aria-hidden="true"></i>
+            <h3 class="font-display font-semibold text-mist-100 mb-2">Machine Learning</h3>
+            <p class="text-sm text-mist-300 leading-relaxed">Building practical machine learning solutions for real-world problems.</p>
+          </div>
+
+          <div class="reveal border border-ink-700 rounded-lg p-6 hover:border-signal/50 transition-colors">
+            <i class="fa-solid fa-microchip text-signal text-xl mb-4" aria-hidden="true"></i>
+            <h3 class="font-display font-semibold text-mist-100 mb-2">AI Solutions</h3>
+            <p class="text-sm text-mist-300 leading-relaxed">Developing AI-powered applications and intelligent systems.</p>
+          </div>
+
+          <div class="reveal border border-ink-700 rounded-lg p-6 hover:border-signal/50 transition-colors">
+            <i class="fa-solid fa-clipboard-check text-signal text-xl mb-4" aria-hidden="true"></i>
+            <h3 class="font-display font-semibold text-mist-100 mb-2">AI Evaluation &amp; Data Annotation</h3>
+            <p class="text-sm text-mist-300 leading-relaxed">Evaluating AI outputs, preparing datasets, annotation, and quality assurance.</p>
+          </div>
+
+          <div class="reveal border border-ink-700 rounded-lg p-6 hover:border-signal/50 transition-colors">
+            <i class="fa-solid fa-laptop-code text-signal text-xl mb-4" aria-hidden="true"></i>
+            <h3 class="font-display font-semibold text-mist-100 mb-2">Web Development</h3>
+            <p class="text-sm text-mist-300 leading-relaxed">Building responsive and user-friendly web applications.</p>
+          </div>
+
+          <div class="reveal border border-ink-700 rounded-lg p-6 hover:border-signal/50 transition-colors">
+            <i class="fa-solid fa-magnifying-glass text-signal text-xl mb-4" aria-hidden="true"></i>
+            <h3 class="font-display font-semibold text-mist-100 mb-2">Technical Research</h3>
+            <p class="text-sm text-mist-300 leading-relaxed">Researching technologies and transforming ideas into practical solutions.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- CONTACT SECTION                                          -->
+    <!-- ======================================================= -->
+    <!--
+      Form behavior: since this site has no backend, the form opens the
+      visitor's email client with the message pre-filled (mailto:), handled
+      in js/script.js. To switch to Formspree instead (so replies land in
+      your inbox without opening a mail client):
+        1. Create a free form at https://formspree.io and get your endpoint,
+           e.g. https://formspree.io/f/xxxxxxx
+        2. Change the <form> tag below to:
+           <form id="contact-form" action="https://formspree.io/f/xxxxxxx" method="POST">
+        3. In js/script.js, delete the contact-form submit handler block
+           (search for "CONTACT FORM") so the form submits normally to Formspree. 
+    -->
+    <section id="contact" class="scroll-mt-16 py-24 border-t border-ink-800 bg-ink-900/40">
+      <div class="max-w-6xl mx-auto px-6 lg:px-8 grid lg:grid-cols-[1fr_1.3fr] gap-16">
+
+        <div class="reveal">
+          <h2 class="font-display font-semibold text-3xl text-mist-100 mb-4">Let's talk</h2>
+          <p class="text-mist-300 leading-relaxed max-w-prose mb-10">
+            Open to internships, freelance work, and remote opportunities in data science, AI, or full-stack development.
+            The fastest way to reach me is email.
+          </p>
+
+          <ul class="space-y-5">
+            <li class="flex items-center gap-4">
+              <span class="w-10 h-10 rounded-md bg-signal/10 text-signal flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+              </span>
+              <a href="mailto:justinesilwimba2q@gmail.com" class="text-mist-100 hover:text-signal transition-colors break-all">justinesilwimba2q@gmail.com</a>
+            </li>
+
+            <!-- Phone number -->
+            <li class="flex items-center gap-4">
+              <span class="w-10 h-10 rounded-md bg-signal/10 text-signal flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-phone" aria-hidden="true"></i>
+              </span>
+              <a
+                href="tel:+255682472472"
+                class="text-mist-100 hover:text-signal transition-colors"
+              >
+                +255 682 472 472
+               </a>
+            </li>
+            <li class="flex items-center gap-4">
+              <span class="w-10 h-10 rounded-md bg-signal/10 text-signal flex items-center justify-center shrink-0">
+                <i class="fa-brands fa-github" aria-hidden="true"></i>
+              </span>
+              <a href="https://github.com/Justine-Xagmi" target="_blank" rel="noopener noreferrer" class="text-mist-100 hover:text-signal transition-colors">github.com/Justine-Xagmi</a>
+            </li>
+            <li class="flex items-center gap-4">
+              <span class="w-10 h-10 rounded-md bg-signal/10 text-signal flex items-center justify-center shrink-0">
+                <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
+              </span>
+              <a href="https://www.linkedin.com/in/justine-lwky" target="_blank" rel="noopener noreferrer" class="text-mist-100 hover:text-signal transition-colors">linkedin.com/in/justine-lwky</a>
+            </li>
+            <li class="flex items-center gap-4">
+              <span class="w-10 h-10 rounded-md bg-signal/10 text-signal flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+              </span>
+              <span class="text-mist-100">Tanzania</span>
+            </li>
+          </ul>
+        </div>
+
+        <form id="contact-form" action="https://formspree.io/f/xrpblapj" method="POST" class="reveal space-y-5" novalidate>
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div>
+              <label for="cf-name" class="block text-sm text-mist-300 mb-2">Name</label>
+              <input type="text" id="cf-name" name="name" required
+                class="w-full rounded-md bg-ink-800 border border-ink-700 px-4 py-3 text-mist-100 placeholder:text-mist-500 focus:border-signal outline-none transition-colors"
+                placeholder="Your name" />
+            </div>
+            <div>
+              <label for="cf-email" class="block text-sm text-mist-300 mb-2">Email</label>
+              <input type="email" id="cf-email" name="email" required
+                class="w-full rounded-md bg-ink-800 border border-ink-700 px-4 py-3 text-mist-100 placeholder:text-mist-500 focus:border-signal outline-none transition-colors"
+                placeholder="you@example.com" />
+            </div>
+          </div>
+
+          <div>
+            <label for="cf-subject" class="block text-sm text-mist-300 mb-2">Subject</label>
+            <input type="text" id="cf-subject" name="subject" required
+              class="w-full rounded-md bg-ink-800 border border-ink-700 px-4 py-3 text-mist-100 placeholder:text-mist-500 focus:border-signal outline-none transition-colors"
+              placeholder="What's this about?" />
+          </div>
+
+          <div>
+            <label for="cf-message" class="block text-sm text-mist-300 mb-2">Message</label>
+            <textarea id="cf-message" name="message" rows="5" required
+              class="w-full rounded-md bg-ink-800 border border-ink-700 px-4 py-3 text-mist-100 placeholder:text-mist-500 focus:border-signal outline-none transition-colors resize-none"
+              placeholder="Tell me a bit about the opportunity or project..."></textarea>
+          </div>
+
+          <p id="cf-status" class="text-sm text-mist-500" role="status" aria-live="polite"></p>
+
+          <button type="submit"
+            class="inline-flex items-center gap-2 rounded-md bg-signal text-ink-950 font-semibold px-6 py-3 hover:bg-signal-600 transition-colors">
+            Send message
+            <i class="fa-solid fa-paper-plane text-sm" aria-hidden="true"></i>
+          </button>
+        </form>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ======================================================= -->
+  <!-- FOOTER                                                   -->
+  <!-- ======================================================= -->
+  <footer class="border-t border-ink-800 py-12">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-8 mb-8">
+        <div>
+          <a href="#home" class="font-display font-semibold text-lg text-mist-100">Justine<span class="text-signal">.</span></a>
+          <p class="text-sm text-mist-500 mt-2 max-w-sm">
+            IT, Data Science &amp; AI Enthusiast, Building Practical, Working Technology.
+          </p>
+        </div>
+
+        <div class="flex items-center gap-5">
+          <a href="https://github.com/Justine-Xagmi" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile" class="text-mist-500 hover:text-signal transition-colors text-lg">
+            <i class="fa-brands fa-github" aria-hidden="true"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/justine-lwky" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile" class="text-mist-500 hover:text-signal transition-colors text-lg">
+            <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
+          </a>
+          <a href="mailto:justinesilwimba2q@gmail.com" aria-label="Send an email" class="text-mist-500 hover:text-signal transition-colors text-lg">
+            <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="pt-8 border-t border-ink-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-mist-500">
+        <span>&copy; <span id="current-year"></span> Justine Silwimba. All rights reserved.</span>
+        <a href="#home" id="footer-top-link" class="inline-flex items-center gap-2 hover:text-signal transition-colors">
+          Back to top
+          <i class="fa-solid fa-arrow-up text-xs" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to top button (wired up in Stage 3) -->
+  <button id="back-to-top" type="button" aria-label="Back to top"
+    class="fixed bottom-6 right-6 z-40 w-11 h-11 rounded-full bg-ink-800 border border-ink-700 text-mist-100 hidden items-center justify-center hover:border-signal hover:text-signal transition-colors">
+    <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+  </button>
+
+
+
+<script
+  type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+</script>
+
+<script>
+  emailjs.init({
+    publicKey: "mA9vKdun3JLiVq2ol"
+  });
+</script>
+<script src="js/script.js"></script>
+
+</body>
+</html>
